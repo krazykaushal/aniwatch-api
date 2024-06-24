@@ -19,9 +19,9 @@ app.use(morgan("dev"));
 app.use(corsConfig);
 
 // CAUTION: For personal deployments, "refrain" from having an env
-// named "ANIWATCH_API_HOSTNAME". You may face rate limitting
+// named "API_HOSTNAME_ANIWATCH". You may face rate limitting
 // and other issues if you do.
-const ISNT_PERSONAL_DEPLOYMENT = Boolean(process?.env?.ANIWATCH_API_HOSTNAME);
+const ISNT_PERSONAL_DEPLOYMENT = Boolean(process?.env?.API_HOSTNAME_ANIWATCH);
 if (ISNT_PERSONAL_DEPLOYMENT) {
   app.use(ratelimit);
 }
@@ -47,7 +47,7 @@ if (!Boolean(process?.env?.IS_VERCEL_DEPLOYMENT)) {
       console.log("HEALTHCHECK ;)", new Date().toLocaleString());
       https
         .get(
-          new URL("/health", `https://${process.env.ANIWATCH_API_HOSTNAME}`)
+          new URL("/health", `https://${process.env.API_HOSTNAME_ANIWATCH}`)
             .href
         )
         .on("error", (err) => {
